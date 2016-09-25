@@ -1,6 +1,6 @@
 package exercicios;
 
-public class Curso {
+public class Curso{
     private int idCurso;
     private String nome;
     private double cargaHorario;

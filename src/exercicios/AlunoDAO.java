@@ -15,6 +15,33 @@ import java.util.ArrayList;
  * @author Daniel Lucarelli
  */
 public class AlunoDAO {
+    
+    public static void update(Aluno aluno) {
+        String sql = "UPDATE aluno SET nome = ?, cpf=? WHERE codigo_aluno=?";
+        try {
+            PreparedStatement stmt = ConexaoBD.conexao().prepareStatement(sql);
+            stmt.setString(1, aluno.getNome());
+            stmt.setString(2, aluno.getCpf());
+            stmt.setLong(3, aluno.getIdAluno());
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+    
+    public static void remover(Aluno aluno) {
+        String sql = "DELETE FROM aluno WHERE codigo_aluno = ?";
+        try {
+            PreparedStatement stmt = ConexaoBD.conexao().prepareStatement(sql);
+            stmt.setLong(1, aluno.getIdAluno());
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+    
     public static void adiciona(Aluno aluno) {
         String sql = "INSERT INTO aluno(nome,cpf) VALUES(?,?)";
         try {
@@ -29,10 +56,27 @@ public class AlunoDAO {
         }
     }
     
+    public static Aluno buscar(int texto){
+        Aluno aluno = new Aluno();
+        String sql = "Select * from aluno where codigo_aluno="+texto;
+        try {
+            PreparedStatement stmt = ConexaoBD.conexao().prepareStatement(sql);
+            ResultSet resultset = stmt.executeQuery();
+            resultset.next();
+            aluno = new Aluno(resultset.getString(2), resultset.getString(3), resultset.getInt(1));
+            resultset.close();
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException u) {
+            System.out.println("Não foi possivel executar o sql aluno" + u);
+        }
+        return aluno;
+    }
+    
     public static Aluno buscar(String texto){
         Aluno aluno = new Aluno();
         try {
-            PreparedStatement stmt = ConexaoBD.getConn2().prepareStatement(texto);
+            PreparedStatement stmt = ConexaoBD.conexao().prepareStatement(texto);
             ResultSet resultset = stmt.executeQuery();
             resultset.next();
             aluno = new Aluno(resultset.getString(2), resultset.getString(3), resultset.getInt(1));
@@ -64,4 +108,5 @@ public class AlunoDAO {
         return list;
 
     }
+
 }
