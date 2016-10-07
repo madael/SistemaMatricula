@@ -108,5 +108,16 @@ public class AlunoDAO {
         return list;
 
     }
+    
+    public static Aluno[] consultaJtable(ArrayList<Aluno> list) {
+        Aluno[] aluno = new Aluno[list.size()];
+        int cont = aluno.length-1;
+        for(int k=0;k<list.size();k++){
+            aluno[cont--]=list.get(k);
+        }
+
+        return aluno;
+
+    }
 
 }

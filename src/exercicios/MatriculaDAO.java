@@ -106,6 +106,16 @@ public class MatriculaDAO {
 
     }
     
+    public static Matricula[] consultaJtable(ArrayList<Matricula> list) {
+        Matricula[] matricula = new Matricula[list.size()];
+        int cont = matricula.length-1;
+        for(int k=0;k<list.size();k++){
+            matricula[cont--]=list.get(k);
+        }
+        return matricula;
+
+    }
+    
    
     
 }

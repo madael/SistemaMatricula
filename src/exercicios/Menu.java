@@ -5,8 +5,12 @@
  */
 package exercicios;
 
+import frames.JframAluno;
+import frames.JframCurso;
+import frames.JframMatricula;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JFrame;
 
 /**
  *
@@ -171,11 +175,50 @@ public class Menu {
                         alunos = AlunoDAO.consulta();
                         cursos = CursoDAO.consulta();
                         matriculas = MatriculaDAO.consulta();
+                        JframAluno jfmAluno = new JframAluno();
+                        JframCurso jframCurso = new JframCurso();
+                        JframMatricula jframMatricula = new JframMatricula();
+                        while (X != 0) {
+                            System.out.println("Selecione qual deseja visualizar:");
+                            System.out.println("1. Curso");
+                            System.out.println("2. Aluno");
+                            System.out.println("3. Matricula");
+                            System.out.println("0. sair");
+                            X = scanner.nextInt();
+                            switch (X) {
+                                case 1:
+                                    jframCurso.consulta(cursos);
+                                    jframCurso.setVisible(true);
+                                    jframMatricula.setVisible(false);
+                                    jfmAluno.setVisible(false);
+                                    break;
+                                case 2:
+                                    jfmAluno.consulta(alunos);
+                                    jfmAluno.setVisible(true);
+                                    jframCurso.setVisible(false);
+                                    jframMatricula.setVisible(false);
+                                    break;
+                                case 3:
+                                    jframMatricula.consulta(matriculas);
+                                    jframMatricula.setVisible(true);
+                                    jfmAluno.setVisible(false);
+                                    jframCurso.setVisible(false);
+                                    break;
+                                case 0:
+                                    jframMatricula.setVisible(false);
+                                    jfmAluno.setVisible(false);
+                                    jframCurso.setVisible(false);
+                                    break;
+                                default:
+                                    System.out.println(">>> Opção invalida <<< ");
+                                    break;
+                            }
+                        }
                     }
                     break;
                 case 10:
-                    int b=0;
-                    int id=-1;
+                    int b = 0;
+                    int id = -1;
                     while (X != 0) {
                         System.out.println("Selecione:");
                         System.out.println("1. Curso");
@@ -183,7 +226,7 @@ public class Menu {
                         System.out.println("3. Matricula");
                         System.out.println("0. sair");
                         X = scanner.nextInt();
-                        b = X;                        
+                        b = X;
                         switch (X) {
                             case 1:
                                 System.out.println("Digite o id do Curso");
@@ -210,15 +253,16 @@ public class Menu {
                                 break;
                         }
                     }
-                    if(id==-1)
+                    if (id == -1) {
                         break;
-                    if (b==1) {
+                    }
+                    if (b == 1) {
                         curso.imprimir();
-                    }else if(b==2){
+                    } else if (b == 2) {
                         aluno.imprimir();
-                    }else if(b==3){
+                    } else if (b == 3) {
                         matricula.imprimir();
-                    }else{
+                    } else {
                         break;
                     }
                     System.out.println("Você deseja remover-lo?");
@@ -226,28 +270,28 @@ public class Menu {
                     System.out.println("2. Não");
                     X = scanner.nextInt();
                     if (X == 1) {
-                        if (b==1) {
+                        if (b == 1) {
                             CursoDAO.remover(curso);
-                        }else if(b==2){
+                        } else if (b == 2) {
                             AlunoDAO.remover(aluno);
-                        }else if(b==3){
+                        } else if (b == 3) {
                             MatriculaDAO.remover(matricula);
-                        }else{
+                        } else {
                             break;
                         }
                     }
                     break;
                 case 11:
-                     id=-1;
-                     b=-1;
+                    id = -1;
+                    b = -1;
                     while (X != 0) {
                         System.out.println("Selecione:");
                         System.out.println("1. Curso");
                         System.out.println("2. Aluno");
                         System.out.println("3. Matricula");
                         System.out.println("0. sair");
-                        X = scanner.nextInt(); 
-                        b=X;
+                        X = scanner.nextInt();
+                        b = X;
                         switch (X) {
                             case 1:
                                 System.out.println("Digite o id do Curso");
@@ -274,15 +318,16 @@ public class Menu {
                                 break;
                         }
                     }
-                    if(id==-1)
+                    if (id == -1) {
                         break;
-                    if (b==1) {
+                    }
+                    if (b == 1) {
                         curso.imprimir();
-                    }else if(b==2){
+                    } else if (b == 2) {
                         aluno.imprimir();
-                    }else if(b==3){
+                    } else if (b == 3) {
                         matricula.imprimir();
-                    }else{
+                    } else {
                         break;
                     }
                     String s;
@@ -291,30 +336,30 @@ public class Menu {
                     System.out.println("2. Não");
                     X = scanner.nextInt();
                     if (X == 1) {
-                        if (b==1) {
+                        if (b == 1) {
                             System.out.println("Digite o nome do curso:");
-                            s=scanner.next();
+                            s = scanner.next();
                             curso.setNome(s);
-                            System.out.println("Digite a carga horaria do curso:");                            
+                            System.out.println("Digite a carga horaria do curso:");
                             curso.setCargaHorario(scanner.nextDouble());
                             CursoDAO.update(curso);
-                        }else if(b==2){
+                        } else if (b == 2) {
                             System.out.println("Digite o nome do aluno:");
                             aluno.setNome(scanner.next());
-                            System.out.println("Digite o cpf do aluno:");                            
+                            System.out.println("Digite o cpf do aluno:");
                             aluno.setCpf(scanner.next());
                             AlunoDAO.update(aluno);
-                        }else if(b==3){
+                        } else if (b == 3) {
                             System.out.println("Digite o codigo do curso:");
                             curso.setId(scanner.nextInt());
                             matricula.setCurso(curso);
-                            System.out.println("Digite o codigo do aluno:");   
+                            System.out.println("Digite o codigo do aluno:");
                             aluno.setIdAluno(scanner.nextInt());
                             matricula.setAluno(aluno);
-                            System.out.println("Digite a data da matricula:");   
+                            System.out.println("Digite a data da matricula:");
                             matricula.setData(scanner.next());
                             MatriculaDAO.update(matricula);
-                        }else{
+                        } else {
                             break;
                         }
                     }

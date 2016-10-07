@@ -111,4 +111,15 @@ public class CursoDAO{
 
     }
     
+    public static Curso[] consultaJtable(ArrayList<Curso> list) {
+        Curso[] curso = new Curso[list.size()];
+        int cont = curso.length-1;
+        for(int k=0;k<list.size();k++){
+            curso[cont--]=list.get(k);
+        }
+
+        return curso;
+
+    }
+    
 }
